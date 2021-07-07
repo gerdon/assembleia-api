@@ -4,6 +4,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import br.com.assembleia.assembleiaapi.main.model.EntityMaster;
@@ -20,6 +21,7 @@ public class Associado extends EntityMaster {
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotBlank
 	@Size(min = 3, max = 120)
 	@Column(length = 120, nullable = false)
 	private String nome;
