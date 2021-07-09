@@ -28,7 +28,7 @@ public class VotoService {
 		return repository.findByAssociadoEquals(associado);
 	}
 	
-	public Voto findByAssociadoAndSessao(Integer idAssociado, Integer idSessao) {
+	public Boolean findByAssociadoAndSessao(Integer idAssociado, Integer idSessao) {
 		return repository.findByAssociadoAndSessao(idAssociado, idSessao);
 	}
 }

@@ -61,7 +61,7 @@ public class SessaoVotacaoController {
 	/**
 	 * Votar
 	 * 
-	 * @return
+	 * @return Voto
 	 * @throws VotoRegistradoException 
 	 * @throws SessaoVotacaoException 
 	 */

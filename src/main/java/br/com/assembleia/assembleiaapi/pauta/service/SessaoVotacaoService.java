@@ -75,12 +75,11 @@ public class SessaoVotacaoService {
 		novoVoto.setAssociado(associado);
 		novoVoto.setVoto(voto);
 		
-//		Voto existeVoto = votoService.findByAssociadoEquals(associado);
-//		Voto existeVoto = votoService.findByAssociadoAndSessao(associado.getId(), sv.getId());
+		Boolean existeVoto = votoService.findByAssociadoAndSessao(associado.getId(), sv.getId());
 		
-//		if(existeVoto.getId() != null) {
-//			// Adicionar exceção
-//		}
+		if(existeVoto) {
+			throw new VotoRegistradoException();
+		}
 		
 		Voto votoRegistrado = votoService.save(novoVoto);
 		
