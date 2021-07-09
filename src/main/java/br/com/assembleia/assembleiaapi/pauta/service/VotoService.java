@@ -27,4 +27,8 @@ public class VotoService {
 	public Voto findByAssociadoEquals(Associado associado) {
 		return repository.findByAssociadoEquals(associado);
 	}
+	
+	public Voto findByAssociadoAndSessao(Integer idAssociado, Integer idSessao) {
+		return repository.findByAssociadoAndSessao(idAssociado, idSessao);
+	}
 }
