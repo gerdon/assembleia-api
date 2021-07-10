@@ -25,6 +25,10 @@ public class Associado extends EntityMaster {
 	@Size(min = 3, max = 120)
 	@Column(length = 120, nullable = false)
 	private String nome;
+	
+	@Size(min = 11)
+	@Column(length = 11, nullable = false)
+	private String cpf;
 
 	public String getNome() {
 		return nome;
@@ -32,6 +36,14 @@ public class Associado extends EntityMaster {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 }

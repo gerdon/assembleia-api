@@ -38,6 +38,28 @@ public class SessaoVotacao extends EntityMaster {
 	@OneToMany
 	@JoinColumn(name = "id_sessao_votacao")
 	private List<Voto> votos = new ArrayList<Voto>();
+	
+
+	// TODO Adicionar essa lógica no Serviço da entidade
+	/**
+	 * Contabiliza o total de votos registrados na Pauta 
+	 * @return String
+	 */
+	public String getVotosTotal() {
+		Integer favoravel = 0;
+		Integer desfavoravel = 0;
+		
+		for(Voto v : votos) {
+			if (v.getVoto() == true) {
+				favoravel++;
+			} else {
+				desfavoravel++;
+			}
+		}
+		
+		return "A pauta teve um total de "+ favoravel +" votos favoráveis e "
+			+ desfavoravel +" votos desfavoráveis.";
+	}
 
 	public String getTempoHoras() {
 		return tempoHoras;
@@ -51,8 +73,13 @@ public class SessaoVotacao extends EntityMaster {
 		return tempoMinutos;
 	}
 
+	// TODO Adicionar essa lógica no Serviço da entidade
 	public void setTempoMinutos(String tempoMinutos) {
-		this.tempoMinutos = tempoMinutos;
+		if(tempoMinutos.equals("") || tempoMinutos == null || tempoMinutos.equals("0")) {
+			this.tempoMinutos = "1";
+		} else {			
+			this.tempoMinutos = tempoMinutos;
+		}
 	}
 
 	public Boolean getAtiva() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.assembleia.assembleiaapi.pauta.exception.SessaoVotacaoException;
+import br.com.assembleia.assembleiaapi.pauta.exception.UnableToVoteException;
 import br.com.assembleia.assembleiaapi.pauta.exception.VotoRegistradoException;
 import br.com.assembleia.assembleiaapi.pauta.model.SessaoVotacao;
 import br.com.assembleia.assembleiaapi.pauta.model.Voto;
@@ -64,10 +65,11 @@ public class SessaoVotacaoController {
 	 * @return Voto
 	 * @throws VotoRegistradoException 
 	 * @throws SessaoVotacaoException 
+	 * @throws UnableToVoteException 
 	 */
-	@GetMapping("/votar")
-	public ResponseEntity<Voto> votar(@RequestParam Integer idAssociado, 
-			@RequestParam Integer idPauta, @RequestParam Boolean voto) throws SessaoVotacaoException, VotoRegistradoException {
+	@GetMapping("v1/votar")
+	public ResponseEntity<Voto> votar(@RequestParam Integer idAssociado, @RequestParam Integer idPauta, @RequestParam Boolean voto) 
+			throws SessaoVotacaoException, VotoRegistradoException, UnableToVoteException {
 		Voto v = service.votar(idAssociado, idPauta, voto);
 		
 		return new ResponseEntity<Voto>(v, HttpStatus.OK);
