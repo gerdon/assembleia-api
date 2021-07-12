@@ -23,6 +23,7 @@ import br.com.assembleia.assembleiaapi.pauta.model.SessaoVotacao;
 import br.com.assembleia.assembleiaapi.pauta.model.Voto;
 import br.com.assembleia.assembleiaapi.pauta.service.SessaoVotacaoService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @author Gerdon Mafra
@@ -38,6 +39,7 @@ public class SessaoVotacaoController {
 	@Autowired
 	SessaoVotacaoService service;
 	
+	@ApiOperation(value = "Método responsável por lista todas as entidades", code = 200)
 	@GetMapping
 	public ResponseEntity<List<SessaoVotacao>> findAll() {
 		List<SessaoVotacao> entities = service.findAll();
@@ -45,6 +47,7 @@ public class SessaoVotacaoController {
 		return new ResponseEntity<List<SessaoVotacao>>(entities, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Método responsável por criar uma entidade", code = 201)
 	@PostMapping
 	public ResponseEntity<SessaoVotacao> save(@Valid @RequestBody SessaoVotacao entity) {
 		SessaoVotacao created = (SessaoVotacao) service.save(entity);
@@ -56,6 +59,7 @@ public class SessaoVotacaoController {
 		return new ResponseEntity<SessaoVotacao>(created, HttpStatus.CREATED);
 	}
 	
+	@ApiOperation(value = "Método responsável por atualizar uma entidade", code = 200)
 	@PutMapping
 	public ResponseEntity<SessaoVotacao> update(@Valid @RequestBody SessaoVotacao entity) {
 		SessaoVotacao updated = (SessaoVotacao) service.save(entity);
@@ -71,6 +75,7 @@ public class SessaoVotacaoController {
 	 * @throws SessaoVotacaoException 
 	 * @throws UnableToVoteException 
 	 */
+	@ApiOperation(value = "Método responsável por registrar o voto na sessão de votação", code = 200)
 	@GetMapping("v1/votar")
 	public ResponseEntity<Voto> votar(@RequestParam Integer idAssociado, @RequestParam Integer idPauta, @RequestParam Boolean voto) 
 			throws SessaoVotacaoException, VotoRegistradoException, UnableToVoteException {
