@@ -23,10 +23,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 	
 	@Bean
-    public Docket bookHotelApi() {
+    public Docket assembleiaApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("br.com.assembleia.assembleiaapi"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(getApiInfo());
