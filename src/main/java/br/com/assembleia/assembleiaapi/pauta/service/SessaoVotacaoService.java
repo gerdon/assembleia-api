@@ -3,9 +3,13 @@ package br.com.assembleia.assembleiaapi.pauta.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +54,11 @@ public class SessaoVotacaoService {
 	}
 	
 	public SessaoVotacao save(SessaoVotacao entity) {		
-		return repository.save(entity);
+//		return repository.save(entity);
+		SessaoVotacao created = repository.save(entity);
+//		created = findById(created.getId());
+		sessaoVotacaoAtiva(created);
+		return created;
 	}
 	
 	public SessaoVotacao update(SessaoVotacao entity) {
@@ -125,6 +133,7 @@ public class SessaoVotacaoService {
 	 * @return Boolean
 	 */
 	public Boolean verificarSessaoAtiva(SessaoVotacao sv) {
+		sv = findById(sv.getId());
 		LocalDateTime dataAtual = LocalDateTime.now();
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -171,5 +180,34 @@ public class SessaoVotacaoService {
 
 		return obj.get("status").toString();
 	}
+	
+	/**
+	 * 
+	 * @param sessao
+	 */
+	public void sessaoVotacaoAtiva(SessaoVotacao sessao) {
+		Boolean verifySessao = true;
+		
+		while (verifySessao) {
+//			if (!verificarSessaoAtiva(sessao)) {
+			if (verificarSessaoAtiva(sessao)) {
+				verifySessao = false;
+				// Quando a sessão fechar envie uma mensagem com o resultado da votação
+				final String mensageKey = UUID.randomUUID().toString();
+				KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<String, String>(null);
+				kafkaTemplate.send("votacao", mensageKey, "Sessao Votacao Fechada");
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param
+	 */
+    @KafkaListener(topics = "votacao", groupId = "${spring.kafka.consumer.group-id}")
+    public void consumer(String data) {
+//        log.info("Teste Kafka: " + order);
+        System.out.println("Teste Kafka: " + data.toString());
+    }
 
 }
