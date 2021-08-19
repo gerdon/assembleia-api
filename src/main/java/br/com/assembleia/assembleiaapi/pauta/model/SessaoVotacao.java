@@ -2,6 +2,7 @@ package br.com.assembleia.assembleiaapi.pauta.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -104,6 +105,28 @@ public class SessaoVotacao extends EntityMaster {
 
 	public void setVotos(List<Voto> votos) {
 		this.votos = votos;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(ativa, pauta, tempoHoras, tempoMinutos, votos);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof SessaoVotacao))
+			return false;
+		SessaoVotacao other = (SessaoVotacao) obj;
+		return Objects.equals(ativa, other.ativa) && Objects.equals(pauta, other.pauta)
+				&& Objects.equals(tempoHoras, other.tempoHoras) && Objects.equals(tempoMinutos, other.tempoMinutos)
+				&& Objects.equals(votos, other.votos);
 	}
 
 }

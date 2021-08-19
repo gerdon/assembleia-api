@@ -1,5 +1,7 @@
 package br.com.assembleia.assembleiaapi.pauta.model;
 
+import java.util.Objects;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +34,26 @@ public class Pauta extends EntityMaster {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(nome);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof Pauta))
+			return false;
+		Pauta other = (Pauta) obj;
+		return Objects.equals(nome, other.nome);
 	}
 
 }

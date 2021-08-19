@@ -1,5 +1,7 @@
 package br.com.assembleia.assembleiaapi.associado.model;
 
+import java.util.Objects;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +46,26 @@ public class Associado extends EntityMaster {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(cpf, nome);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof Associado))
+			return false;
+		Associado other = (Associado) obj;
+		return Objects.equals(cpf, other.cpf) && Objects.equals(nome, other.nome);
 	}
 
 }

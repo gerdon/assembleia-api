@@ -1,5 +1,7 @@
 package br.com.assembleia.assembleiaapi.pauta.model;
 
+import java.util.Objects;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +44,26 @@ public class Voto extends EntityMaster {
 
 	public void setAssociado(Associado associado) {
 		this.associado = associado;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(associado, voto);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof Voto))
+			return false;
+		Voto other = (Voto) obj;
+		return Objects.equals(associado, other.associado) && Objects.equals(voto, other.voto);
 	}
 
 }

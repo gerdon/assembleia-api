@@ -2,6 +2,7 @@ package br.com.assembleia.assembleiaapi.main.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -47,6 +48,21 @@ public class EntityMaster implements Serializable {
 	@JsonIgnore
 	public Date getCreationDate() {
 		return creationDate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(creationDate, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof EntityMaster))
+			return false;
+		EntityMaster other = (EntityMaster) obj;
+		return Objects.equals(creationDate, other.creationDate) && Objects.equals(id, other.id);
 	}
 	
 }
