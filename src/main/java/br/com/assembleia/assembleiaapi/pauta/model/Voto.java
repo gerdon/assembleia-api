@@ -66,4 +66,19 @@ public class Voto extends EntityMaster {
 		return Objects.equals(associado, other.associado) && Objects.equals(voto, other.voto);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Voto [voto=");
+		builder.append(voto);
+		builder.append(", associado=");
+		builder.append(associado);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append(", creationDate=");
+		builder.append(creationDate);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

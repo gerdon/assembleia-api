@@ -129,4 +129,25 @@ public class SessaoVotacao extends EntityMaster {
 				&& Objects.equals(votos, other.votos);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("SessaoVotacao [tempoHoras=");
+		builder.append(tempoHoras);
+		builder.append(", tempoMinutos=");
+		builder.append(tempoMinutos);
+		builder.append(", ativa=");
+		builder.append(ativa);
+		builder.append(", pauta=");
+		builder.append(pauta);
+		builder.append(", votos=");
+		builder.append(votos);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append(", creationDate=");
+		builder.append(creationDate);
+		builder.append("]");
+		return builder.toString();
+	}
+	
 }

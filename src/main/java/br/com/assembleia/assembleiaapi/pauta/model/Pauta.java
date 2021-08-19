@@ -56,4 +56,17 @@ public class Pauta extends EntityMaster {
 		return Objects.equals(nome, other.nome);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pauta [nome=");
+		builder.append(nome);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append(", creationDate=");
+		builder.append(creationDate);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
